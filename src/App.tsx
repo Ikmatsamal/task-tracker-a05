@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import './App.css'
 import {
   createTask,
+  MAX_TITLE_LENGTH,
   toggleTask,
   deleteTask,
   filterTasks,
@@ -56,6 +57,7 @@ function App() {
           type="text"
           placeholder="What needs doing?"
           value={title}
+          maxLength={MAX_TITLE_LENGTH}
           onChange={(e) => setTitle(e.target.value)}
           aria-label="Task title"
         />

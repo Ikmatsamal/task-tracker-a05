@@ -11,11 +11,20 @@ export type Filter = 'all' | 'active' | 'done'
 
 let idCounter = 0
 
+export const MAX_TITLE_LENGTH = 100
+
 export function createTask(title: string, priority: Priority = 'medium'): Task {
+  const trimmed = title.trim()
+  if (!trimmed) {
+    throw new Error('Task title must not be empty')
+  }
+  if (trimmed.length > MAX_TITLE_LENGTH) {
+    throw new Error(`Task title must be at most ${MAX_TITLE_LENGTH} characters`)
+  }
   idCounter += 1
   return {
     id: `task-${idCounter}`,
-    title: title.trim(),
+    title: trimmed,
     priority,
     done: false,
   }

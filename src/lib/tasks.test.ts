@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   createTask,
+  MAX_TITLE_LENGTH,
   toggleTask,
   deleteTask,
   filterTasks,
@@ -26,6 +27,22 @@ describe('createTask', () => {
 
   it('trims the title', () => {
     expect(createTask('  spaced  ').title).toBe('spaced')
+  })
+
+  it('throws on an empty title', () => {
+    expect(() => createTask('')).toThrow()
+  })
+
+  it('throws on a whitespace-only title', () => {
+    expect(() => createTask('   ')).toThrow()
+  })
+
+  it('accepts a title of exactly 100 characters', () => {
+    expect(() => createTask('a'.repeat(MAX_TITLE_LENGTH))).not.toThrow()
+  })
+
+  it('throws on a title of 101 characters', () => {
+    expect(() => createTask('a'.repeat(MAX_TITLE_LENGTH + 1))).toThrow()
   })
 })
 
