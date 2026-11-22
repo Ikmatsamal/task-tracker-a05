@@ -1,50 +1,27 @@
-# React + TypeScript + Vite
+# Task Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Small task tracker built with React, TypeScript and Vite. It is a training project for Software Engineering Assignment #05 (agent readiness and risk review).
 
-Currently, two official plugins are available:
+## What it does
+- Add a task with a title (max 100 characters) and a priority: low, medium or high.
+- Mark a task as done or not done, and delete it.
+- Filter the list: All, Active, Done. A counter shows how many tasks are still active.
+- Tasks are kept only in React state. There is no backend and no database, so the list is lost when the page is reloaded.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Run it
+- npm install
+- npm run dev (opens on http://localhost:5173/)
+- npm test (Vitest unit tests for the task logic)
+- npm run lint
+- npm run build
 
-## Expanding the ESLint configuration
+## Project structure
+- src/lib/tasks.ts: task logic as plain functions (createTask, toggleTask, deleteTask, filterTasks, countActive, sortByPriority)
+- src/lib/tasks.test.ts: unit tests for those functions
+- src/App.tsx: user interface and React state
+- AGENTS.md: rules for AI coding agents (safe commands, forbidden actions, review gates)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Known limitations
+- Tasks are not saved after a reload.
+- There are no UI tests, only tests for the logic.
+- npm audit reports 6 vulnerabilities in development dependencies (vite / vitest chain). They are not fixed yet because the fix needs a breaking upgrade.
